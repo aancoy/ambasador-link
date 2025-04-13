@@ -4,18 +4,29 @@
   <meta charset="UTF-8">
   <title>Redirecting to app...</title>
   <script>
-    const path = window.location.pathname;
-    
-    // Extract feed ID from path like /feeds/123
-    const match = path.match(/\/feeds\/(\d+)/);
-    
-    if (match) {
-      const feedId = match[1];
-      const deepLink = `ambasador-apps://open/feeds/${feedId}`;
-      window.location.href = deepLink;
-    } else {
-      document.body.innerHTML = 'Invalid link format.';
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+      const path = window.location.pathname;
+      const match = path.match(/\/feeds\/(\d+)/);
+
+      if (match) {
+        const feedId = match[1];
+        const deepLink = `ambasador-apps://open/feeds/${feedId}`;
+        const fallbackUrl = "https://play.google.com/store/apps/details?id=com.asdor.ambasador"; // <-- Change if needed
+
+        // Create hidden iframe to attempt opening the app
+        const iframe = document.createElement("iframe");
+        iframe.style.display = "none";
+        iframe.src = deepLink;
+        document.body.appendChild(iframe);
+
+        // Set a timeout: if app isn't opened in ~2 sec, redirect to fallback
+        setTimeout(() => {
+          window.location.href = fallbackUrl;
+        }, 2000);
+      } else {
+        document.body.innerHTML = 'Invalid link format.';
+      }
+    });
   </script>
 </head>
 <body>
