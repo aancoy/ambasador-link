@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting to app...</title>
+  <script>
+    const path = window.location.pathname;
+    
+    // Extract feed ID from path like /feeds/123
+    const match = path.match(/\/feeds\/(\d+)/);
+    
+    if (match) {
+      const feedId = match[1];
+      const deepLink = `ambasador-apps://open/feeds/${feedId}`;
+      window.location.href = deepLink;
+    } else {
+      document.body.innerHTML = 'Invalid link format.';
+    }
+  </script>
+</head>
+<body>
+  <p>Redirecting...</p>
+</body>
+</html>
