@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.asdor.ambasador",
+    "sha256_cert_fingerprints":
+    ["9A:42:E5:2C:EB:06:C4:F9:E8:ED:DA:82:6A:5C:82:74:B6:83:52:08:C4:EB:0D:7E:B3:C6:34:AB:88:A2:CA:A9"]
+  }
+}]
