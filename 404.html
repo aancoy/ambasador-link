@@ -8,19 +8,28 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const path = window.location.pathname;
-      const match = path.match(/\/feeds\/(\d+)/);
-
-      if (match) {
-        const feedId = match[1];
-        const deepLink = `ambasador-apps://open/feeds/${feedId}`;
+      const feeds = path.match(/\/feeds\/(\d+)/);
+      const profile = path.match(/\/profile\/(\d+)/);
+      
+      let deepLink = null;
+      
+      if (feeds) {
+        const feedId = feeds[1];
+        deepLink = `ambasador-apps://open/feeds/${feedId}`;
+      } else if (profile) {
+        const profileId = profile[1];
+        deepLink = `ambasador-apps://open/profile/${profileId}`;
+      }
+      
+      if (deepLink) {
         const fallbackUrl = "https://play.google.com/store/apps/details?id=com.asdor.ambasador"; // <-- Change if needed
-
+      
         // Create hidden iframe to attempt opening the app
         const iframe = document.createElement("iframe");
         iframe.style.display = "none";
         iframe.src = deepLink;
         document.body.appendChild(iframe);
-
+      
         // Set a timeout: if app isn't opened in ~2 sec, redirect to fallback
         setTimeout(() => {
           window.location.href = fallbackUrl;
