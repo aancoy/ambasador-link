@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    // Get the last part of the URL
+    const pathParts = window.location.pathname.split('/');
+    const feedId = pathParts[pathParts.length - 1];
+
+    // Redirect to your custom URI scheme
+    if (feedId) {
+      window.location.href = `ambasador://feeds/${feedId}`;
+    }
+  </script>
+</head>
+<body>
+  <p>If you are not redirected, <a id="manual" href="#">click here</a>.</p>
+  <script>
+    document.getElementById("manual").href = `ambasador://feeds/${window.location.pathname.split('/').pop()}`;
+  </script>
+</body>
+</html>
